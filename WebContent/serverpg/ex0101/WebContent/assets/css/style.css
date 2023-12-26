@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  background: #cef;
+}
+
+header {
+  position: relative;
+  height: 60px;
+  background: #fff;
+}
+
+h1 {
+  position: absolute;
+  margin-left: 2.5%;
+}
+
+main {
+  width: 90%;
+  margin: 0 auto;
+  padding-bottom: 1rem;
+  background: #eef;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 1rem 0;
+  width: 50%;
+}
+
+h2 {
+  margin-left: 5%;
+  font-size: 2rem;
+}
+
+h3 {
+  text-align: center;
+}
+
+img {
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+}
+
+p {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 1rem 1rem 0;
+}

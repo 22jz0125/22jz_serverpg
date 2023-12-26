@@ -1,0 +1,41 @@
+CREATE TABLE Videos ( 
+  	id NUMBER GENERATED ALWAYS AS IDENTITY NOT NULL, 
+    title VARCHAR2(255) NOT NULL, 
+    synopsis_short VARCHAR2(100) NOT NULL, 
+    synopsis_long VARCHAR2(2000) NOT NULL, 
+    pc_ng NUMBER(1) NOT NULL 
+);
+ALTER TABLE Videos ADD PRIMARY KEY (id);
+
+
+CREATE TABLE Users ( 
+  	id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
+    email VARCHAR2(255) NOT NULL, 
+    password VARCHAR2(255) NOT NULL, 
+    created_at DATE NOT NULL, 
+    updated_at DATE NOT NULL 
+);
+ALTER TABLE Users MODIFY created_at DEFAULT SYSDATE;
+ALTER TABLE Users MODIFY updated_at DEFAULT SYSDATE;
+
+
+CREATE TABLE Licenses ( 
+  	id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
+    video_id NUMBER , 
+    price INT NOT NULL, 
+    purchase_start_date DATE NOT NULL, 
+    purchase_end_date DATE NOT NULL, 
+    FOREIGN KEY (video_id) 
+　	REFERENCES Videos ( id ) 
+);
+
+
+CREATE TABLE PurchaseHistories ( 
+  	id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
+    license_id NUMBER , 
+    user_id NUMBER , 
+    purchase_date DATE NOT NULL, 
+    FOREIGN KEY (license_id) REFERENCES Licenses ( id ) ON DELETE CASCADE, 
+    FOREIGN KEY (user_id) REFERENCES Users ( id ) ON DELETE CASCADE 
+);
+ALTER TABLE PurchaseHistories MODIFY purchase_date DEFAULT SYSDATE;

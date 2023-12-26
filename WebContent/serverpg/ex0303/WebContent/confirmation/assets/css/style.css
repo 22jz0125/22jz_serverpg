@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  margin: 0;
+  color: #333;
+  background: #dfd;
+}
+header {
+  background: linear-gradient(#fff, #dfd);
+  height: 60px;
+}
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #daa;
+  padding: 20px;
+  min-height: calc(100vh - 60px);
+}
+
+h1 {
+  display: inline-block;
+  font-size: 1.4rem;
+  margin: 0;
+  padding: 15px;
+  color: #242;
+}
+h2 {
+  font-size: 2rem;
+  color: #242;
+}
+figure {
+  margin: 0;
+}
+p {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+
+ul {
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+.btn {
+  background: #ec8;
+  border: 1px solid #420;
+  border-radius: 2px;
+  padding: 5px 20px;
+}
+.btn:hover {
+  cursor: pointer;
+}
+.btn.negative {
+  background: #ccc;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+}
+a.btn {
+  display: inline-block;
+  height: 30px;
+}
+
+/* 商品詳細
+==============================*/
+.content {
+  display: flex;
+}
+.detail {
+  padding: 0 50px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.detail .price {
+  color: #f33;
+  font-size: 2rem;
+  font-weight: bold;
+}
+#form-confirm {
+  text-align: right;
+}
+#label-count {
+  font-size: 1.4rem;
+}
+#count {
+  width: 40px;
+  margin: 10px 0;
+}
+
+/* 購入確認
+==============================*/
+.purchase-list {
+  max-width: 600px;
+  margin: 50px auto;
+}
+.list-item {
+  display: flex;
+  justify-content: center;
+}
+.list-item .item-image {
+  width: 100px;
+}
+.list-item-description {
+  padding: 0 20px;
+
+}
+.list-item-description p {
+  font-size: 2rem;
+  text-align: right;
+  margin-bottom: 40px;
+}
+.list-item-description p + p {
+  margin: 0;
+  font-size: 2rem;
+  text-align: right;
+}
+.form-purchase {
+  text-align: center;
+}
+
+
+@media screen and (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+  h2 {
+    padding: 0 50px;
+  }
+  .item-image {
+    margin: 0 auto;
+  }
+  .detail {
+    margin-top: 50px;
+  }
+}

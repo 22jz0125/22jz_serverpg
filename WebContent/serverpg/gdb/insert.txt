@@ -1,0 +1,18 @@
+INSERT INTO items (name, price, description, imageURL, material, weight)
+VALUES ('mrハンドバッグ', 26000, 'ころんと丸い、繊細な印象のハンドバッグ', '../assets/img/category_bag.png', '牛革', 230);
+
+
+INSERT INTO colors(item_id, name, color_code)
+VALUES (1, 'キャメル', '#c49961');
+
+
+INSERT INTO sizes(item_id, height_size, width_size, depth_size)
+VALUES (1, 21, 21, 15);
+
+---------------------------------------------------------------------------------------
+
+INSERT INTO items (name, price, description, imageURL, material, weight)
+VALUES ('mrビックバッグ', 56000, 'ガツンと丸い、豪胆な印象の大きなバッグ', '../assets/img/category_bag.png', '牛革', 860);
+
+
+column name format a20;

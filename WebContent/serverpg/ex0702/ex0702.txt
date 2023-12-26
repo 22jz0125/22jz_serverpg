@@ -1,0 +1,284 @@
+SQL> CREATE TABLE Videos (
+  2    id NUMBER GENERATED ALWAYS AS IDENTITY NOT NULL,
+  3      title VARCHAR2(255) NOT NULL,
+  4      synopsis_short VARCHAR2(100) NOT NULL,
+  5      synopsis_long VARCHAR2(2000) NOT NULL,
+  6      pc_ng NUMBER(1) NOT NULL
+  7  );
+
+表が作成されました。
+
+SQL> ALTER TABLE Videos ADD PRIMARY KEY (id);
+
+表が変更されました。
+
+SQL>
+SQL> CREATE TABLE Users (
+  2    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  3      email VARCHAR2(255) NOT NULL,
+  4      password VARCHAR2(255) NOT NULL,
+  5      created_at DATE NOT NULL,
+  6      updated_at DATE NOT NULL
+  7  );
+
+表が作成されました。
+
+SQL> ALTER TABLE Users MODIFY created_date DEFAULT SYSDATE;
+ALTER TABLE Users MODIFY created_date DEFAULT SYSDATE
+                         *
+行1でエラーが発生しました。:
+ORA-00904: "CREATED_DATE": 無効な識別子です。
+
+
+SQL> ALTER TABLE Users MODIFY updated_date DEFAULT SYSDATE;
+ALTER TABLE Users MODIFY updated_date DEFAULT SYSDATE
+                         *
+行1でエラーが発生しました。:
+ORA-00904: "UPDATED_DATE": 無効な識別子です。
+
+
+SQL> ALTER TABLE Users MODIFY created_at DEFAULT SYSDATE;
+
+表が変更されました。
+
+SQL> ALTER TABLE Users MODIFY updated_at DEFAULT SYSDATE;
+
+表が変更されました。
+
+SQL>
+SQL> CREATE TABLE Licenses (
+  2    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  3      video_id NUMBER ,
+  4      price INT NOT NULL,
+  5      purchase_start_date DATE NOT NULL,
+  6      purchase_end_date DATE NOT NULL,
+  7      FOREIGN KEY (video_id)
+  8  　REFERENCES Videos ( id )
+  9  );
+
+表が作成されました。
+
+SQL> CREATE TABLE PurchaseHistories (
+  2    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  3      license_id NUMBER ,
+  4      user_id NUMBER ,
+  5      purchase_date DATE NOT NULL,
+  6      FOREIGN KEY (license_id) REFERENCES Licenses ( id ) ON DELETE CASCADE,
+  7      FOREIGN KEY (user_id) REFERENCES Users ( id ) ON DELETE CASCADE
+  8  );
+
+表が作成されました。
+
+SQL> ALTER TABLE PurchaseHistories MODIFY purchase_date DEFAULT SYSDATE;
+
+表が変更されました。
+
+SQL> SELECT TABLE_NAME
+  2    FROM USER_TABLE;
+  FROM USER_TABLE
+       *
+行2でエラーが発生しました。:
+ORA-00942: 表またはビューが存在しません。
+
+
+SQL>   FROM USERS_TABLE;
+SP2-0734: "FROM USERS..."で開始するコマンドが不明です - 残りの行は無視されました。
+SQL> SELECT TABLE_NAME
+  2    FROM USER_TABLES;
+
+TABLE_NAME
+--------------------------------------------------------------------------------
+LICENSES
+PURCHASEHISTORIES
+USERS
+VIDEOS
+
+SQL> INSERT INTO Users (email, password)
+  2  VALUES ('22jz0125@jec.ac.jp', 'd74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1');
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('SQL入門講座 - 基本から応用まで', 'SQLの基本構文から応用までを解説する入門講座。', 'データベース操作言語SQLの基本的な構文から応用的な使い方までをわかりやすく解説する入門講座。データの抽出から加工、挿入などSQLの全般的な機能を網 羅。', 0);
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('クエリ最適化の奥深き世界', 'データベースクエリの最適化手法に焦点を当てる。', 'データベースクエリの最適化手法やパフォーマンス向上のテクニックを探求。インデックスの活用からクエリの改善までを詳細に解説。', 0);
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('大規模データ処理と分散データベース', '大量のデータを処理するための分散データベースの基本。', 'ビッグデータ時代におけるデータ処理の重要性と、分散データベースシステムの概念、設計、管理についての詳細な解説。', 0);
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('NoSQLデータベース比較と選定ガイド', 'NoSQLデータベースの特徴と比較、選定のポイントを解説。', '各NoSQLデー タベースの特性や使用ケースに合わせて選定する際のガイドラインを詳細に紹介。', 0);
+VALUES ('NoSQL', 'NoSQL', 'NoSQL', 0)
+                    *
+行2でエラーが発生しました。:
+ORA-00917: カンマがありません。
+
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('NoSQLデータベース比較と選定ガイド', 'NoSQLデータベースの特徴と比較、選定のポイントを解説。', '各NoSQLデー タベースの特性や使用ケースに合わせて選定する際のガイドラインを詳細に紹介。', 0)
+  3  ;
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('データベース設計の基礎', '効果的なデータベース設計の原則に焦点を当てます。', '正規化やリレーションシップの理解から、実践的な設計手法までを包括的に解説します。', 0);
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('トランザクション管理の奥深い理解', 'データベーストランザクションの基本と高度な管理手法を学びます。', 'ACIDプロパティの理解から分散トランザクションの課題まで、トランザクションの奥深い側面を網羅。', 1);
+ERROR:
+ORA-01756: 引用符付き文字列が正しく終了していません
+
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('トランザクション管理の奥深い理解', 'データベーストランザクションの基本と高度な管理手法を学びます。', 'ACIDプロパティの理解から分散トランザクションの課題まで、トランザクションの奥深い側面を網羅。', 1)
+  3  ;
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('クラウドデータベースの選定と移行', 'クラウドデータベースのメリットと移行の手順を解説します。', 'AWS、Azure、Google Cloudなどの主要プロバイダの比較から、実際のデータベース移行までのステップを詳しく説明。', 1);
+  3
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('クラウドデータベースの選定と移行', 'クラウドデータベースのメリットと移行の手順を解説します。', 'AWS、Azure、Google Cloudなどの主要プロバイダの比較から、実際のデータベース移行までのステップを詳しく説明。', 1)
+  3  ;
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('データセキュリティとプライバシー保護', 'データベースにおけるセキュリティ対策とプライバシー保護の基本を学びます。', '暗号化、アクセス制御、コンプライアンスなど、データセキュリティの重要な概念を理解しましょう。', 0);
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('データウェアハウスとビジネスインテリジェンス', 'データウェアハウスの設計とビジネスインテリジェンスの基礎を学習します。', '大量データの効果的な分析とビジュアライゼーション手法までを包括的に解説。', 0);
+
+1行が作成されました。
+
+SQL> INSERT INTO Videos (title, synopsis_short, synopsis_long, pc_ng)
+  2  VALUES ('データベースの新潮流 - グラフデータベース', 'グラフデータベースの利用と実装に焦点を当てます。', 'ネットワ ークや関係性を重視する場面でのグラフデータベースの有用性や選定方法までを詳しく解説。', 0);
+
+1行が作成されました。
+
+SQL> SELECT id
+  2    FROM Videos
+  3   ORDER BY ;
+ ORDER BY
+         *
+行3でエラーが発生しました。:
+ORA-00936: 式がありません。
+
+
+SQL> SELECT id
+  2    FROM Videos
+  3   ORDER BY 1;
+
+        ID
+----------
+         1
+         2
+         3
+         4
+         5
+         6
+         7
+         8
+         9
+        10
+
+10行が選択されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (1, 400, TO_DATE('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('9999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (2, 400, TO_DATE('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('9999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (3, 300, TO_DATE('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('9999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (4, 1200, TO_DATE('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('9999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (5, 400, TO_DATE('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('9999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (6, 400, TO_DATE('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('9999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (7, 300, TO_DATE('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('9999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (8, 1200, TO_DATE('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('9999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (9, 400, TO_DATE('2000-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2000-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (10, 400, TO_DATE('2099-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('9999-12-31 23:59:59', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> INSERT INTO Licenses (video_id, price, purchase_start_date, purchase_end_date)
+  2  VALUES (2, 800, TO_DATE('2020-01-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'), TO_DATE('2023-11-11 11:11:11', 'YYYY-MM-DD HH24:MI:SS'));
+
+1行が作成されました。
+
+SQL> SELECT id
+  2    FROM Licenses
+  3   ORDER BY 1;
+
+        ID
+----------
+         1
+         2
+         3
+         4
+         5
+         6
+         7
+         8
+         9
+        10
+        11
+
+11行が選択されました。
+
+SQL> INSERT INTO PurchaseHistories (license_id, user_id)
+  2  VALUES (1, 1);
+
+1行が作成されました。
+
+SQL> commit
+  2  ;
+
+コミットが完了しました。
+
+SQL>
